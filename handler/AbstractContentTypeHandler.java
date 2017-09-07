@@ -1,6 +1,4 @@
 /*
- * $Id$
- *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,30 +19,26 @@
 
 package org.apache.struts2.rest.handler;
 
-import com.opensymphony.xwork2.ActionInvocation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 
-/**
- * Handles HTML content, usually just a simple passthrough to the framework
- */
-public class HtmlHandler extends AbstractContentTypeHandler {
+abstract public class AbstractContentTypeHandler implements ContentTypeHandler {
 
-    public String fromObject(ActionInvocation invocation, Object obj, String resultCode, Writer out) throws IOException {
-        return resultCode;
+    private static final Logger LOG = LogManager.getLogger(AbstractContentTypeHandler.class);
+
+    @Override
+    public void toObject(Reader in, Object target) throws IOException {
+        LOG.warn("This method is deprecated!");
     }
 
-    public void toObject(ActionInvocation invocation, Reader in, Object target) {
-    }
-
-    public String getExtension() {
-        return "xhtml";
-    }
-
-    public String getContentType() {
-        return "application/xhtml+xml";
+    @Override
+    public String fromObject(Object obj, String resultCode, Writer stream) throws IOException {
+        LOG.warn("This method is deprecated!");
+        return null;
     }
 
 }
